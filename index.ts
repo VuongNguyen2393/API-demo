@@ -10,6 +10,10 @@ app.post('/product',(req:any,res:any) => {
     res.send('product list - VuongND9')
 })
 
+app.get('/product',(req:any,res:any) => {
+    res.send('product list get - VuongND9')
+})
+
 app.listen(port, () => {
     console.log(`Sever VuongND9 is listening on port ${port}`)
 })
