@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 
 app.get('/', (req:any, res:any) => {
-    res.send('get something - VuongND9')
+    res.send({'vuong':'get something - VuongND9'})
   })
 
 app.post('/product',(req:any,res:any) => {
