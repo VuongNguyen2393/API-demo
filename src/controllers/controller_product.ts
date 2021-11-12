@@ -8,7 +8,7 @@ exports.post_product = function(req:any,res:any){
         price        : req.body.price,
         rating       : req.body.rating
     })
-    post.save().then(() => console.log('data updated'))
+    post.save().then(() => console.log('data is updated'))
 }
 
 exports.get_product = function(req:any,res:any){
