@@ -14,14 +14,14 @@ exports.post_order = function(req:any,res:any){
 }
 
 exports.get_order = function(req:any,res:any){
-    const id = req.params.order_id
-    Order.findById(id).polulate('product').then((result:any) => {
+    const id = req.params.id
+    Order.findById(id).populate('product').then((result:any) => {
         res.json(result)
     })
 }
 
 exports.update_order = function(req:any,res:any){
-    const id = req.params.order_id
+    const id = req.params.id
     Order.update({_id:id},{$set:req.body}).then(
         res.send('Update successfully')
     )
@@ -29,7 +29,7 @@ exports.update_order = function(req:any,res:any){
 }
 
 exports.delete_order = function(req:any,res:any){
-    const id = req.params.order_id
+    const id = req.params.id
     Order.findByIdAndRemove(id).then(
         res.send('Delete successfully')
     )
