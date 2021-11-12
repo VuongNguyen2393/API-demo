@@ -19,12 +19,14 @@ app.use(bodyParser.json())
 
 app.use('/',routes)
 //=============Chưa test được DB nên test tạm cái này====================
-app.get('/product', (req:any, res:any) => {
-    res.json({  Product_name:'quạt',
-                Categofy:'gia dụng',
-                Price: '120.000'})
-  })
+// app.get('/product', (req:any, res:any) => {
+//     res.json({  Product_name:'quạt',
+//                 Categofy:'gia dụng',
+//                 Price: '120.000'})
+//   })
 //=============================================================================
+
+
 
 app.listen(port, () => {
     console.log(`Sever API - VuongND9 is listening on port ${port}`)
