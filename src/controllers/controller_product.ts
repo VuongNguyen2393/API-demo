@@ -6,30 +6,42 @@ exports.post_product = function(req:any,res:any){
         category     : req.body.category,
         price        : req.body.price
     })
-    post.save().then(
-        res.send('Create successfully')
-    )
+    post.save((err:any) => {
+        if (err) {
+            res.send('Error')
+        }
+        res.send('create successfully')
+    })
 }
 
 exports.get_product = function(req:any,res:any){
     const id = req.params.id
-    Product.findById(id).populate('category').then((result:any) => {
+    Product.findById(id).populate('category').exec((err:any,result:any) => {
+        if (err) {
+            res.send('Error')
+        }
         res.json(result)
     })
 }
 
 exports.update_product = function(req:any,res:any){
     const id = req.params.id
-    Product.update({_id:id},{$set:req.body}).then(
+    Product.update({_id:id},{$set:req.body},(err:any,result:any) => {
+        if (err) {
+            res.send('Error')
+        }
         res.send('Update successfully')
-    )
+    })
 
 }
 
 exports.delete_product = function(req:any,res:any){
     const id = req.params.id
-    Product.findByIdAndRemove(id).then(
+    Product.findByIdAndRemove(id,(err:any,result:any) => {
+        if (err) {
+            res.send('Error')
+        }
         res.send('Delete successfully')
-    )
+    })
 
 }

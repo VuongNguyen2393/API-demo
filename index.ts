@@ -1,3 +1,5 @@
+import { Error } from "mongoose"
+
 const express = require('express')
 const dotenv = require('dotenv')
 const mongoose = require('mongoose')
@@ -13,9 +15,15 @@ dotenv.config()
 
 
 // connect DB
-mongoose.connect(process.env.DB_URL, { useNewUrlParser: true})
+mongoose.connect(process.env.DB_URL, { useNewUrlParser: true}).then(() => {
+    console.log('MongoDB connected')
+}).catch((err:any) => {
+    console.log('Error connecting to MongoDB')
+    console.log(`${err}`)
+})
 
 app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended: false}))
 
 app.use('/',routes)
 //=============Chưa test được DB nên test tạm cái này====================
