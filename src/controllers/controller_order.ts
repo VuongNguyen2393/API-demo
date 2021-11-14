@@ -1,22 +1,24 @@
 const mongoose2 = require('mongoose')
 const Order = require('../models/order')
+const products = require('../models/products')
 
-
-exports.post_order = function(req:any,res:any){
-
-    const post = new Order({
-        product : req.body.product,
-        quantity: req.body.quantity,
-        total_price: req.body.total_price
-        //total_price: req.body.quantiy * 3
-    })
-    post.save((err:any) => {
-        if (err) {
-            res.send('Error')
-        }
+exports.post_order = async(req:any,res:any) => {
+    try { 
+        const product = await products.findById(req.body.product)
+        const price = product.price     
+        const post = new Order({
+            product : req.body.product,
+            quantity: req.body.quantity,
+            total_price: req.body.quantity * price
+        })
+        post.save()
         res.send('Create successfully')
-    })
-}
+    }
+    catch{
+        res.send('Error')
+
+    }
+};
 
 exports.get_order = function(req:any,res:any){
     const id = req.params.id
