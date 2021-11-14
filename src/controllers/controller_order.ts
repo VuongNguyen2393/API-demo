@@ -20,6 +20,18 @@ exports.post_order = async(req:any,res:any) => {
     }
 };
 
+//find all
+exports.find_all = function(req:any,res:any){
+    Order.find().exec((err:any,result:any) => {
+        if (err){
+            res.send('Error')
+        }
+        res.json(result)
+    }) 
+}
+
+
+
 exports.get_order = function(req:any,res:any){
     const id = req.params.id
     Order.findById(id).populate('product').exec((err:any,result:any) => {

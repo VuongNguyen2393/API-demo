@@ -13,6 +13,18 @@ exports.post_category = function(req:any,res:any){
     })
 }
 
+exports.find_all = function(req:any,res:any){
+    Category.find().exec((err:any,result:any) => {
+        if (err){
+            res.send('Error')
+        }
+        res.json(result)
+    }) 
+}
+
+
+
+
 exports.get_category = function(req:any,res:any){
     const id = req.params.id
     Category.findById(id).exec((err:any,result:any) => {

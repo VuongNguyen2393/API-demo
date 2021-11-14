@@ -14,6 +14,17 @@ exports.post_product = function(req:any,res:any){
     })
 }
 
+exports.find_all = function(req:any,res:any){
+    Product.find().exec((err:any,result:any) => {
+        if (err){
+            res.send('Error')
+        }
+        res.json(result)
+    }) 
+}
+
+
+
 exports.get_product = function(req:any,res:any){
     const id = req.params.id
     Product.findById(id).populate('category').exec((err:any,result:any) => {
