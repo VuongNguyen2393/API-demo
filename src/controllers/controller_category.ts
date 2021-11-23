@@ -1,58 +1,80 @@
 const Category = require('../models/category')
 
-exports.post_category = function(req:any,res:any){
-    const post = new Category({
-        //category_id : req.body.category_id,
-        category_name : req.body.category_name
-    })
-    post.save((err:any) => {
-        if (err) {
-            res.send('Error')
+exports.post_category = async (req:any,res:any) => {
+    try{
+        const post = new Category({category_name : req.body.category_name})
+        post.save()
+        res.send('Create sucessfully')
+    }
+    catch (Error:any) {
+        res.json(Error.message)
+    }
+}
+        
+
+exports.find_all = async (req:any,res:any) => {
+    try{
+        const category = await Category.find()
+        if (category){
+            res.send(category)
         }
-        res.send('create successfully')
-    })
+        else{
+            res.status(404).send('No category found')
+        }
+    }
+    catch (Error:any) {
+        res.json(Error.message)
+    }
 }
 
-exports.find_all = function(req:any,res:any){
-    Category.find().exec((err:any,result:any) => {
-        if (err){
-            res.send('Error')
+
+
+
+exports.get_category = async(req:any,res:any) => {
+    try{
+        const category = await Category.findById(req.params.id)
+        if (category){
+            res.send(category)
         }
-        res.json(result)
-    }) 
+        else{
+            res.status(404).send('Category not found')
+        }
+    }
+    catch (Error:any) {
+        res.json(Error.message)
+    }
+    
 }
 
-
-
-
-exports.get_category = function(req:any,res:any){
-    const id = req.params.id
-    Category.findById(id).exec((err:any,result:any) => {
-        if (err){
-            res.send('Error')
+exports.update_category = async (req:any,res:any) => {
+    try{
+        const category = await Category.update({_id:req.params.id},{$set:req.body})
+        if (category){
+            res.send('Update successfully')
         }
-        res.json(result)
-    })
-}
-
-exports.update_category = function(req:any,res:any){
-    const id = req.params.id
-    Category.update({_id:id},{$set:req.body},(err:any,result:any) => {
-        if (err) {
-            res.send('Error')
+        else{
+            res.status(404).send('Category not found')
         }
-        res.send('Update successfully')
-    })
+        
+        // res.json(category)
+    }
+    catch (Error:any) {
+        res.json(Error.message)
+    }
 
 }
 
-exports.delete_category = function(req:any,res:any){
-    const id = req.params.id
-    Category.findByIdAndRemove(id,(err:any,result:any) => {
-        if (err) {
-            res.send('Error')
+exports.delete_category = async (req:any,res:any) => {
+    try{
+        const category = await Category.findByIdAndRemove(req.params.id)
+        if (category){
+            res.send('Delete sucessfully')
         }
-        res.send('Delete successfully')
-    })
-
+        else{
+            res.status(404).send('Category not found')
+        }
+    }
+    catch (Error:any) {
+        res.json(Error.message)
+    }
 }
